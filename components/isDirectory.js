@@ -18,19 +18,14 @@ const directoryOrFile = (path, ext) => {
               console.log(err);
             }
     
-            // Filtra documentos por extensión .md
-            const filesMd = files.filter(file => ext(file) === '.md');
-            filesMd.forEach(file => {
-                readFile(file);
-            });
+            // Filtra documentos por extensión .md y lee
+            files.forEach(file => readFile(file, ext));
           });
         }
     
-        // Pregunta si la extensión del archivo es md
+        // Pregunta si la extensión del archivo es md y lee
         else {
-          if(ext(path) === '.md'){
-            readFile(path);
-          };
+          readFile(path, ext);
         };
     });
 };
