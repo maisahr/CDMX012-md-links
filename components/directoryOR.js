@@ -1,7 +1,7 @@
-const directoryOrFile = (path, ext) => {
-    const fs = require('fs');
-    const readFile = require('./readFile.js')
+const fs = require('fs');
+const readFile = require('./readFile.js')
 
+const directoryOrFile = (path) => {
     // Pregunta si la ruta es un directorio 
     fs.stat(path, (err, stats) => {
         if (err) {
@@ -19,13 +19,14 @@ const directoryOrFile = (path, ext) => {
             }
     
             // Filtra documentos por extensión .md y lee
-            files.forEach(file => readFile(file, ext));
+            console.log(files);
+            files.forEach(file => readFile(file));
           });
         }
     
         // Pregunta si la extensión del archivo es md y lee
         else {
-          readFile(path, ext);
+          readFile(path);
         };
     });
 };
