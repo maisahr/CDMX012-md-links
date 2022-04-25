@@ -1,6 +1,6 @@
-const getAbsolutePath = require('./components/pathAbsolute.js');
-const {directoryOrFile, readDirectory} = require('./components/directoryOR.js');
-const readFile = require('./components/readFile.js');
+const getAbsolutePath = require('./utils/pathAbsolute.js');
+const {directoryOrFile, readDirectory} = require('./utils/directoryOR.js');
+const readFile = require('./utils/readFile.js');
 
 const pathAbsolute = getAbsolutePath(process.argv[2]);
 
