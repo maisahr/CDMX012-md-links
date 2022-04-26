@@ -1,10 +1,10 @@
-const getAbsolutePath = require('./utils/pathAbsolute.js');
-const {directoryOrFile, readDirectory} = require('./utils/directoryOR.js');
-const readFile = require('./utils/readFile.js');
+const fs = require('fs');
+const path = require('path');
+const {readDirectory, readFile} = require('./utils/readFiles.js');
 
-const pathAbsolute = getAbsolutePath(process.argv[2]);
+const pathAbsolute = path.resolve(process.argv[2]);
 
-if(directoryOrFile(pathAbsolute) === true) {
+if(fs.lstatSync(pathAbsolute).isDirectory() === true) {
     readDirectory(pathAbsolute);
 } else {
     readFile(pathAbsolute);
