@@ -2,11 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 const cheerio = require('cheerio');
+const axios = require('axios');
 
 // Lee un documento
-const readAFile = (file) => {
+const readAFile = (file, options) => {
   if(path.extname(file) === '.md'){
-    return mdToHTML(fs.readFileSync(file, 'utf8'), file);
+    return mdToHTML(fs.readFileSync(file, 'utf8'), file, options);
   }
 };
 
@@ -20,21 +21,35 @@ const readDirectory = (directory) => {
   return newFilesPath;
 }
 
-const mdToHTML = (data, file) => {
+const mdToHTML = (data, file, options) => {
   const toHTML = marked.parse(data);
 
   const $ = cheerio.load(toHTML);
 
   $('a').each((i, link) => {
     const linkHref = link.attribs.href;
-    if(linkHref.includes('https') === true) {
+    if(linkHref.includes('http') === true) {
       const aText = $(link).text();
       const aObject = {
         href: linkHref,
         text: aText,
         file: file
       }
-      return console.log(aObject);
+      if(options.validate === false){
+        return console.log(aObject);
+      } else {
+        axios.get(linkHref)
+        .then(response => {
+          aObject.status = response.status;
+          return console.log(aObject);
+        })
+        .catch(e => {
+          if (e.response) {
+            aObject.status = e.response.status;
+            return console.log(aObject);
+          }
+        })
+      }
     }
   });
 }
