@@ -4,14 +4,14 @@ const {readDirectory, readAFile} = require('./utils/readFiles.js');
 
 const pathAbsolute = path.resolve(process.argv[2]);
 
-const mdLinks = (pathAbsolute) => {
+const recursion = (pathAbsolute) => {
     if(fs.lstatSync(pathAbsolute).isDirectory() === true) {
         readDirectory(pathAbsolute).forEach(file => {
-            mdLinks(file);
+            recursion(file);
         });
     } else {
         readAFile(pathAbsolute);
     };
-}
+};
 
-mdLinks(pathAbsolute);
+recursion(pathAbsolute);
