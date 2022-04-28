@@ -1,11 +1,31 @@
-## 2. Resumen del proyecto
+## 6. Entregables
 
-En este proyecto crearás una herramienta de línea de comando (CLI) así como tu
-propia librería (o biblioteca - library) en JavaScript.
+Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
+incluir tanto **un ejecutable** como **una interfaz** que podamos importar con `require`
+para usarlo programáticamente.
 
-En esta oportunidad nos alejamos un poco del navegador para construir un
-programa que se ejecute usando Node.js. Aprenderemos sobre procesos
-(`process.env`, `process.args`, ...), cómo interactuar con el sistema archivos,
-cómo hacer consultas de red, etc.
+## 7. Hacker edition
 
-[Node.js](https://nodejs.org/es/)
+Las secciones llamadas _Hacker Edition_ son **opcionales**. Si **terminaste**
+con todo lo anterior y te queda tiempo, intenta completarlas. Así podrás
+profundizar y/o ejercitar más sobre los objetivos de aprendizaje del proyecto.
+
+* Puedes agregar la propiedad `line` a cada objeto `link` indicando en qué línea
+  del archivo se encontró el link.
+* Puedes agregar más estadísticas.
+* Integración continua con Travis o Circle CI.
+
+***
+
+## 8. Pistas, tips y lecturas complementarias
+
+### FAQs
+
+#### ¿Cómo hago para que mi módulo sea _instalable_ desde GitHub?
+
+Para que el módulo sea instalable desde GitHub solo tiene que:
+
+* Estar en un repo público de GitHub
+* Contener un `package.json` válido
+
+Con el comando `npm install githubname/reponame` podemos instalar directamente
