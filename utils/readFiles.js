@@ -5,31 +5,22 @@ const cheerio = require('cheerio');
 
 // Lee un documento
 const readAFile = (file) => {
-  if(path.extname(file) === '.md') {
-    fs.readFile(file, 'utf8', (err, data) => {
-      if(err) {
-        return console.log('No pudimos leer la ruta ' + file + '. Por favor verificala y vuelve a intentar.');
-      }
-      return mdToHTML(data);
-    });
+  if(path.extname(file) === '.md'){
+    return mdToHTML(fs.readFileSync(file, 'utf8'), file);
   }
 };
 
 // Lee documentos dentro de la carpeta
 const readDirectory = (directory) => {
-  fs.readdir(directory, 'utf8', (err, files) => {
-    if(err) {
-      return console.log('No pudimos encontrar la ruta ' + directory + '. Por favor verificala y vuelve a intentar.');
-    }
-
-    files.forEach(file => {
-      const filePath = path.join(directory, file);
-      readAFile(filePath);
-    });
+  const files = fs.readdirSync(directory, 'utf8');
+  newFilesPath = files.map(file => {
+    const filePath = path.join(directory, file);
+    return filePath;
   });
+  return newFilesPath;
 }
 
-const mdToHTML = (data) => {
+const mdToHTML = (data, file) => {
   const toHTML = marked.parse(data);
 
   const $ = cheerio.load(toHTML);
@@ -40,7 +31,8 @@ const mdToHTML = (data) => {
       const aText = $(link).text();
       const aObject = {
         href: linkHref,
-        text: aText
+        text: aText,
+        file: file
       }
       return console.log(aObject);
     }
@@ -49,5 +41,6 @@ const mdToHTML = (data) => {
 
 module.exports = { 
   readAFile,
-  readDirectory
+  readDirectory,
+  mdToHTML
 };
