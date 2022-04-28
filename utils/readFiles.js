@@ -30,15 +30,31 @@ const mdToHTML = (data, file, options) => {
     const linkHref = link.attribs.href;
     if(linkHref.includes('http') === true) {
       const aText = $(link).text();
-      const aObject = {
-        href: linkHref,
-        text: aText,
-        file: file
-      }
       if(options.validate === false){
-        return console.log(aObject);
+        return validateFalse(linkHref, aText, file);
       } else {
-        axios.get(linkHref)
+        return validateTrue(linkHref, aText, file);
+      }
+    }
+  });
+}
+
+const validateFalse = (link, text, file) => {
+  const aObject = {
+    href: link,
+    text: text,
+    file: file
+  }
+  return console.log(aObject);
+}
+
+const validateTrue = (link, text, file) => {
+  const aObject = {
+    href: link,
+    text: text,
+    file: file
+  }
+  axios.get(link)
         .then(response => {
           aObject.status = response.status;
           return console.log(aObject);
@@ -49,9 +65,6 @@ const mdToHTML = (data, file, options) => {
             return console.log(aObject);
           }
         })
-      }
-    }
-  });
 }
 
 module.exports = { 
