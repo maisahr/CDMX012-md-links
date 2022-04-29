@@ -2,36 +2,39 @@ const marked = require('marked');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-const mdToHTML = (data, file, arrayPromise) => {
-    const toHTML = marked.parse(data);
+const mdToHTML = (data, file, linksArray) => {
+    const dataHTML = marked.parse(data);
   
-    const $ = cheerio.load(toHTML);
+    const $ = cheerio.load(dataHTML);
   
     $('a').each((i, link) => {
       const linkHref = link.attribs.href;
       if(linkHref.includes('http') === true) {
         const text = $(link).text();
-        const aObject = {
+        const linkObject = {
           href: linkHref,
           text: text,
           file: file
         }
-        arrayPromise.push(aObject);
-        return arrayPromise;
+        linksArray.push(linkObject);
+        return linksArray;
       }
     });
 }
   
-const validation = (link, aObject) => {
+const validation = (link) => {
 
-    return axios.get(link)
+    return axios.get(link.href)
     .then(response => {
-       aObject.status = response.status;
-       return aObject;
+       link.status = response.status;
+       link.ok = 'ok';
+       return link;
     })
     .catch(e => {
         if (e.response) {
-          return aObject.status = e.response.status;
+          link.status = e.response.status;
+          link.ok = 'fail';
+          return link;
         }
     })
 }

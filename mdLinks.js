@@ -4,40 +4,39 @@ const {validation} = require('./utils/analizeLinks.js');
 const {readDirectory, readAFile} = require('./utils/readFiles.js');
 
 const mdLinks = (userPath, options) => {
-    const pathAbsolute = path.resolve(userPath);
-    const arrayPromise = [];
+    const absolutePath = path.resolve(userPath);
+    const linksArray = [];
 
-    const recursion = (pathAbsolute) => {
-        if(fs.lstatSync(pathAbsolute).isDirectory() === true) {
-            readDirectory(pathAbsolute).forEach(file => {
+    const recursion = (absolutePath) => {
+        if(fs.lstatSync(absolutePath).isDirectory() === true) {
+            readDirectory(absolutePath).forEach(file => {
                 recursion(file);
             });
         } else {
-            readAFile(pathAbsolute, arrayPromise);
+            readAFile(absolutePath, linksArray);
         };
     };
 
-    recursion(pathAbsolute);
+    recursion(absolutePath);
 
-     const promiseTry = (options, arrayPromise) => {
-        
+    const promise = (options, linksArray) => {
+
         return new Promise(function(resolve, reject) {
 
             if(options.validate === false){
-                resolve(arrayPromise)
-            } if(options.validate === true){
-                const arrayPerla = [];
-                arrayPromise.forEach((link) => {
-                    arrayPerla.push(validation(link.href, link));
-                })
-                resolve(Promise.all(arrayPerla));
+                resolve(linksArray);
+            } else if(options.validate === true){
+                const linksValidation = linksArray.map((link) => {
+                    return validation(link);
+                });
+                resolve(Promise.all(linksValidation));
             } else {
                 reject(console.log('a'))
             }
         });
     }
 
-    return promiseTry(options, arrayPromise);
+    return promise(options, linksArray);
 };
 
 module.exports = mdLinks;
