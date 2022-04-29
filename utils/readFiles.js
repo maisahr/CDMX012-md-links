@@ -3,9 +3,9 @@ const path = require('path');
 const mdToHTML = require('./analizeLinks');
 
 // Lee un documento
-const readAFile = (file, options) => {
+const readAFile = (file, arrayTry) => {
   if(path.extname(file) === '.md'){
-    return mdToHTML(fs.readFileSync(file, 'utf8'), file, options);
+    return mdToHTML(fs.readFileSync(file, 'utf8'), file, arrayTry);
   }
 };
 
