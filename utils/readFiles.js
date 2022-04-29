@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const mdToHTML = require('./analizeLinks');
+const {mdToHTML} = require('./analizeLinks');
 
 // Lee un documento
-const readAFile = (file, arrayTry) => {
+const readAFile = (file, arrayPromise) => {
   if(path.extname(file) === '.md'){
-    return mdToHTML(fs.readFileSync(file, 'utf8'), file, arrayTry);
-  }
+    return mdToHTML(fs.readFileSync(file, 'utf8'), file, arrayPromise);
+  } 
 };
 
 // Lee documentos dentro de la carpeta

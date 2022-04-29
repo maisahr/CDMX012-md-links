@@ -2,7 +2,7 @@ const marked = require('marked');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-const mdToHTML = (data, file, arrayTry) => {
+const mdToHTML = (data, file, arrayPromise) => {
     const toHTML = marked.parse(data);
   
     const $ = cheerio.load(toHTML);
@@ -16,29 +16,27 @@ const mdToHTML = (data, file, arrayTry) => {
           text: text,
           file: file
         }
-        arrayTry.push(aObject);
-        return arrayTry;
+        arrayPromise.push(aObject);
+        return arrayPromise;
       }
     });
 }
   
 const validation = (link, aObject) => {
 
-  if(options.validate === false){
-    return console.log(aObject);
-  } else {
-    axios.get(link)
+    return axios.get(link)
     .then(response => {
-        aObject.status = response.status;
-        return console.log(aObject);
+       aObject.status = response.status;
+       return aObject;
     })
     .catch(e => {
         if (e.response) {
-            aObject.status = e.response.status;
-            return console.log(aObject);
+          return aObject.status = e.response.status;
         }
     })
-  }
 }
   
-module.exports = mdToHTML;
+module.exports = {
+  mdToHTML,
+  validation,
+}
