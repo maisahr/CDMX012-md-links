@@ -4,12 +4,12 @@ const axios = require('axios');
 
 const mdToHTML = (data, file, linksArray) => {
     const dataHTML = marked.parse(data);
-  
+
     const $ = cheerio.load(dataHTML);
   
     $('a').each((i, link) => {
       const linkHref = link.attribs.href;
-      if(linkHref.includes('http') === true) {
+      if(linkHref !== undefined && linkHref.includes('http') === true) {
         const text = $(link).text();
         const linkObject = {
           href: linkHref,
