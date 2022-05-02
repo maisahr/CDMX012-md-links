@@ -12,7 +12,7 @@ describe('readDirectory', () => {
 
   it('should return error', () => {
     const fakePath = 'some/fake/path';
-    expect(readDirectory(fakePath)).toBe(console.log('No pudimos encontrar la ruta ' + fakePath + '. Por favor verificala y vuelve a intentar.'));
+    expect(readDirectory(fakePath)).toBe(console.log("ENOENT: no such file or directory, scandir 'some/fake/path'"));
   });
 
 });
