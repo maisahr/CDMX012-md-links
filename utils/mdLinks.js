@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const {validation} = require('./utils/analizeLinks.js');
-const {readDirectory, readAFile} = require('./utils/readFiles.js');
+const {validation} = require('./analizeLinks.js');
+const {readDirectory, readAFile} = require('./readFiles.js');
 
 const mdLinks = (userPath, options) => {
     const absolutePath = path.resolve(userPath);
@@ -31,7 +31,7 @@ const mdLinks = (userPath, options) => {
                 });
                 resolve(Promise.all(linksValidation));
             } else {
-                reject(console.log('a'))
+                reject(console.log('No pudimos completar la validación, por favor vuelve a intentar.'))
             }
         });
     }
