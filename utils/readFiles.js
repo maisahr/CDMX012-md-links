@@ -19,7 +19,14 @@ const readDirectory = (directory) => {
   return filesNewPath;
 }
 
-module.exports = { 
-  readAFile,
-  readDirectory,
+const recursion = (absolutePath, linksArray) => {
+  if(fs.lstatSync(absolutePath).isDirectory() === true) {
+      readDirectory(absolutePath).forEach(file => {
+          recursion(file, linksArray);
+      });
+  } else {
+      readAFile(absolutePath, linksArray);
+  };
 };
+
+module.exports = recursion;
