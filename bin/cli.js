@@ -4,17 +4,7 @@ const mdLinks = require('../utils/mdLinks.js');
 
 const options = {validate: true}
 
-if(yargs.argv.validate === false && yargs.argv.stats === false){
-    options.validate = false;
-    mdLinks(process.argv[2], options)
-    .then(result => {
-        result.forEach(link => {
-            console.log(link.file, link.href, link.text);
-        });
-    });
-}
-
-else if(yargs.argv.validate === true && yargs.argv.stats === true) {
+if(yargs.argv.validate === true && yargs.argv.stats === true) {
     mdLinks(process.argv[2], options)
     .then(result => {
         const unique = result.filter((link, index, self) => { // self es result
@@ -23,7 +13,7 @@ else if(yargs.argv.validate === true && yargs.argv.stats === true) {
         const broken = unique.filter(link => {
             return link.ok === 'fail';
         });
-        console.log('Total:', result.length, 'Unique:', unique.length, 'Broken:', broken.length);
+        console.log('Total:', result.length, '\nUnique:', unique.length,'\nBroken:', broken.length);
     });
 }
 
@@ -31,7 +21,7 @@ else if(yargs.argv.validate === true) {
     mdLinks(process.argv[2], options)
     .then(result => {
         result.forEach(link => {
-            console.log(link.file, link.href, link.ok, link.status, link.text);
+            console.log(link.file, link.href, link.ok, link.status, link.text.slice(0, 50));
         });
     });
 }
@@ -43,6 +33,16 @@ else if(yargs.argv.stats === true) {
          const unique = result.filter((link, index, self) => { // self es result
             return self.findIndex(l => l.href === link.href) === index;
         });
-        console.log('Total:', result.length, 'Unique:', unique.length);
+        console.log('Total:', result.length, '\nUnique:', unique.length);
     });
 } 
+
+else {
+    options.validate = false;
+    mdLinks(process.argv[2], options)
+    .then(result => {
+        result.forEach(link => {
+            console.log(link.file, link.href, link.text.slice(0, 50));
+        });
+    });
+}
