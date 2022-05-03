@@ -22,6 +22,33 @@ describe('mdToHTML', () => {
 
 });
 
+describe('validation', () => {
+
+  it('returns object with key ok', () => {
+    const link = {
+      href: 'https://curriculum.laboratoria.la/es/topics/javascript/02-flow-control/01-conditionals-and-loops',
+      text: 'Estructuras condicionales y repetitivas',
+      file: 'README.md'
+    }
+      
+    return validation(link).then(data => {
+      expect(data.ok).toEqual('ok');
+    })
+  });
+
+  it('returns object with key fail', () => {
+    const link = {
+      href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+      text: 'Funciones — bloques de código reutilizables - MDN',
+      file: 'README.md'
+    }
+      
+    return validation(link).then(data => {
+      expect(data.ok).toEqual('fail');
+    })
+  });
+});
+
 /* describe('mdLinks', () => {
 
   it('calls recursion function', () => {

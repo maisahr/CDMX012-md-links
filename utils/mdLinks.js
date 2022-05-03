@@ -29,6 +29,7 @@ const promise = (options, linksArray) => {
     });
 }
 
-module.exports = 
-{mdLinks, 
-promise};
+module.exports = {
+    mdLinks, 
+    promise
+};

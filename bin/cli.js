@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
-const mdLinks = require('../utils/mdLinks.js');
+const {mdLinks} = require('../utils/mdLinks.js');
 
 const options = {validate: true}
 
