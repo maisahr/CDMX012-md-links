@@ -24,7 +24,8 @@
 - [ ] **process (env, argv, stdin-stdout-stderr, exit-code)**
 
   <details><summary>Links</summary><p>
-
+  * [File system - Documentación oficial (en inglés)](https://nodejs.org/api/fs.html)
+  * [Path - Documentación oficial (en inglés)](https://nodejs.org/api/path.html)
   * [Process - Documentación oficial (en inglés)](https://nodejs.org/api/process.html)
 </p></details>
 
