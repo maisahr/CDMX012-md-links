@@ -15,7 +15,16 @@ if(yargs.argv.validate === false && yargs.argv.stats === false){
 }
 
 else if(yargs.argv.validate === true && yargs.argv.stats === true) {
-    console.log('validate y stats');
+    mdLinks(process.argv[2], options)
+    .then(result => {
+        const unique = result.filter((link, index, self) => { // self es result
+            return self.findIndex(l => l.href === link.href) === index;
+        });
+        const broken = unique.filter(link => {
+            return link.ok === 'fail';
+        });
+        console.log('Total:', result.length, 'Unique:', unique.length, 'Broken:', broken.length);
+    });
 }
 
 else if(yargs.argv.validate === true) {
@@ -31,11 +40,9 @@ else if(yargs.argv.stats === true) {
     options.validate = false;
     mdLinks(process.argv[2], options)
     .then(result => {
-/*         const unique = result.filter((value, index, self) => {
-            console.log('value', value, 'index', index, 'self', self);
-            return self.findIndex(v => v.href === value.href) === index;
+         const unique = result.filter((link, index, self) => { // self es result
+            return self.findIndex(l => l.href === link.href) === index;
         });
-        console.log(unique); */
-        console.log(result);
+        console.log('Total:', result.length, 'Unique:', unique.length);
     });
 } 
