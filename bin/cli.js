@@ -31,14 +31,21 @@ else if(yargs.argv.stats === true) {
     options.validate = false;
     mdLinks(process.argv[2], options)
     .then(result => {
-        let unique = result.filter(link => {
+        const unique = [];
+        result.forEach(link => {
             const index = result.indexOf(link);
-            for(let i = 1; i < result.length-1; i++){
-                if(result[index+i] !== undefined && link.href !== (result[index+i]).href) {
-                    return link;
+            let uniqueLink = '';
+            for(let i = 1; i < (result.length - index); i++) {
+                if(link.href !== result[index+i].href){
+                    console.log(link.href, result[index+i].href)
+                    return uniqueLink = link
+                } else {
+                    break;
                 }
             }
+            unique.push(uniqueLink);
         });
+        console.log(unique);
         console.log('Total:', result.length, 'Unique:', unique.length);
     });
 } 
