@@ -49,6 +49,33 @@ describe('validation', () => {
   });
 });
 
+describe('readAFile', () => {
+  const linksArray = [];
+
+  it('should not read non-md files', () => { // is this ok??
+    readAFile('notmd.js', linksArray);
+    expect(linksArray).toEqual([]);
+  });
+  
+  it('should read md files', () => {
+    const file = 'README.md';
+    const expected = [{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "text": "Markdown"}];
+    readAFile(file, linksArray);
+    expect(linksArray).toEqual(
+      expect.arrayContaining(expected),
+    );
+  });
+});
+/* 
+describe('readDirectory', () => {
+
+  it('should return error', () => {
+    const fakePath = 'some/fake/path';
+    expect(readDirectory(fakePath)).toBe(console.log("ENOENT: no such file or directory, scandir 'some/fake/path'"));
+  });
+
+}); */
+
 /* describe('mdLinks', () => {
 
   it('calls recursion function', () => {
@@ -56,23 +83,6 @@ describe('validation', () => {
     const options = {validate: true};
     mdLinks('README.md', options);
     expect(recursion).toHaveBeenCalled();
-  });
-
-}); */
-
-/* describe('readAFile', () => {
-
-  it('should not read non-md files', () => {
-    expect(readAFile('notmd.js')).toBe();
-  });
-
-});
-
-describe('readDirectory', () => {
-
-  it('should return error', () => {
-    const fakePath = 'some/fake/path';
-    expect(readDirectory(fakePath)).toBe(console.log("ENOENT: no such file or directory, scandir 'some/fake/path'"));
   });
 
 }); */

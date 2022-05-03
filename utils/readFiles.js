@@ -29,4 +29,8 @@ const recursion = (absolutePath, linksArray) => {
   };
 };
 
-module.exports = recursion;
+module.exports = {
+  readAFile,
+  readDirectory,
+  recursion
+}
