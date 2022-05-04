@@ -6,7 +6,9 @@ const {mdToHTML} = require('./analizeLinks');
 const readAFile = (file, linksArray) => {
   if(path.extname(file) === '.md'){
     return mdToHTML(fs.readFileSync(file, 'utf8'), file, linksArray);
-  } 
+  } else {
+    console.log(file, 'no es un archivo markdown.');
+  }
 };
 
 // Lee documentos dentro de la carpeta
