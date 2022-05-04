@@ -116,3 +116,15 @@ describe('mdLinks', () => {
   });
 
 });
+
+describe('promise', () => {
+
+  it('resolves an array of objects wtih keys file, href, ok, status and text when validate is true.', () => {
+    const linksArray = [{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "text": "Markdown"}]
+    const options = {validate: true};
+    return promise(options, linksArray).then(data => {
+      expect(data).toEqual([{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "ok": "ok", "status": 200, "text": "Markdown"}]);
+    })
+  });
+
+});
