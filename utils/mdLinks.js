@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const {validation} = require('./analizeLinks.js');
-const recursion = require('./readFiles.js');
+const {recursion} = require('./readFiles.js');
 
 const mdLinks = (userPath, options) => {
     const absolutePath = path.resolve(userPath);
