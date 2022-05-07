@@ -7,14 +7,12 @@ const yargs = require('yargs')
     describe: "Validates links.",
     demandOption: false,
     type: "boolean",
-    nargs: 1,
   })
   .option("s", {
     alias: "stats",
     describe: "Returns stadistics about total, unique, and broken links.",
     demandOption: false,
     type: "boolean",
-    nargs: 1,
   })
 
 const {mdLinks} = require('../utils/mdLinks.js');
