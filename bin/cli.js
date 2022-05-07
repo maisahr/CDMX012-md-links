@@ -1,32 +1,25 @@
 #!/usr/bin/env node
 const yargs = require('yargs')
-/*   .scriptName("md-links")
+  .scriptName("md-links")
   .usage("Usage: $0 <ruta-del-archivo> [opciones]")
   .option("v", {
     alias: "validate",
-    describe: "Valida los enlaces.",
-    demandOption: true,
-    type: "booleano",
+    describe: "Validates links.",
+    demandOption: false,
+    type: "boolean",
     nargs: 1,
   })
-  .option("h", {
+  .option("s", {
     alias: "stats",
-    describe: "The height of the area.",
-    demandOption: "The height is required.",
-    type: "number",
+    describe: "Returns stadistics about total, unique, and broken links.",
+    demandOption: false,
+    type: "boolean",
     nargs: 1,
-  }) */
+  })
 
 const {mdLinks} = require('../utils/mdLinks.js');
 
 const options = {validate: true}
-
-const validation = yargs.argv.validate;
-const stadistics = yargs.argv.stats;
-
-const condition = {
-
-}
 
 switch (yargs.argv.validate || yargs.argv.stats) {
     case (yargs.argv.validate === true && yargs.argv.stats === true) :
