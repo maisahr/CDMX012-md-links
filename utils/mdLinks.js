@@ -24,7 +24,7 @@ const promise = (options, linksArray) => {
             });
             resolve(Promise.all(linksValidation));
         } else {
-            reject(console.log('No pudimos completar la validación, por favor vuelve a intentar.'))
+            reject(console.log('We could not run the validation process, please try again.'))
         }
     });
 }

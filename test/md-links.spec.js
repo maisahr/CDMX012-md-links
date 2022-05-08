@@ -52,7 +52,7 @@ describe('validation', () => {
 describe('readAFile', () => {
   const linksArray = [];
 
-  it('does not read non-md files', () => { // is this ok??
+  it('does not read non-md files', () => {
     readAFile('notmd.js', linksArray);
     expect(linksArray).toEqual([]);
   });
@@ -89,13 +89,42 @@ describe('recursion', () => {
 
 });
 
-/* describe('mdLinks', () => {
+describe('mdLinks', () => {
 
-  it('calls recursion function', () => {
-    const recursion = jest.fn();
-    const options = {validate: true};
-    mdLinks('README.md', options);
-    expect(recursion).toHaveBeenCalled();
+  it('returns an array of objects with keys href, text and file if validate is false', () => {
+    const options = {validate: false};
+    return mdLinks('README.md', options).then(data => {
+      expect(data[0]).toEqual(expect.objectContaining({
+        href: expect.any(String),
+        text: expect.any(String),
+        file: expect.any(String)
+      }));
+    });
   });
 
-}); */
+  it('calls recursion function', () => {
+    const options = {validate: true};
+    return mdLinks('README.md', options).then(data => {
+      expect(data[0]).toEqual(expect.objectContaining({
+        href: expect.any(String),
+        text: expect.any(String),
+        file: expect.any(String),
+        status: expect.any(Number),
+        ok: expect.any(String)
+      }));
+    });
+  });
+
+});
+
+describe('promise', () => {
+
+  it('resolves an array of objects wtih keys file, href, ok, status and text when validate is true.', () => {
+    const linksArray = [{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "text": "Markdown"}]
+    const options = {validate: true};
+    return promise(options, linksArray).then(data => {
+      expect(data).toEqual([{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "ok": "ok", "status": 200, "text": "Markdown"}]);
+    })
+  });
+
+});
