@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const yargs = require('yargs')
   .scriptName("md-links")
-  .usage("Usage: $0 <ruta-del-archivo> [opciones]")
+  .usage("Usage: $0 <file-path> [options]")
   .option("v", {
     alias: "validate",
     describe: "Validates links.",
@@ -10,10 +10,14 @@ const yargs = require('yargs')
   })
   .option("s", {
     alias: "stats",
-    describe: "Returns stadistics about total, unique, and broken links.",
+    describe: "Stadistics about total, unique, and broken links.",
     demandOption: false,
     type: "boolean",
   })
+  .describe("help", "Show help.") 
+  .describe("version", "Show version number.")
+  .strictOptions()
+  .help()
 
 const {mdLinks} = require('../utils/mdLinks.js');
 
@@ -23,7 +27,7 @@ switch (yargs.argv.validate || yargs.argv.stats) {
     case (yargs.argv.validate === true && yargs.argv.stats === true) :
         mdLinks(process.argv[2], options)
         .then(result => {
-            const unique = result.filter((link, index, self) => { // self es result
+            const unique = result.filter((link, index, self) => {
                 return self.findIndex(l => l.href === link.href) === index;
             });
             const broken = unique.filter(link => {
@@ -52,6 +56,7 @@ switch (yargs.argv.validate || yargs.argv.stats) {
             console.log('Total:', result.length, '\nUnique:', unique.length);
         });
     break;
+
     default:
         options.validate = false;
         mdLinks(process.argv[2], options)
