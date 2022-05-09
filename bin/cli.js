@@ -23,7 +23,7 @@ const {mdLinks} = require('../utils/mdLinks.js');
 
 const options = {validate: true}
 
-switch (yargs.argv.validate || yargs.argv.stats) {
+switch (true) {
     case (yargs.argv.validate === true && yargs.argv.stats === true) :
         mdLinks(process.argv[2], options)
         .then(result => {
@@ -50,7 +50,7 @@ switch (yargs.argv.validate || yargs.argv.stats) {
         options.validate = false;
         mdLinks(process.argv[2], options)
         .then(result => {
-             const unique = result.filter((link, index, self) => { // self es result
+             const unique = result.filter((link, index, self) => {
                 return self.findIndex(l => l.href === link.href) === index;
             });
             console.log('Total:', result.length, '\nUnique:', unique.length);
