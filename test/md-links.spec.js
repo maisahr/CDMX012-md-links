@@ -87,15 +87,14 @@ describe('readDirectory', () => {
 });
 
 describe('recursion', () => {
-/*   const linksArray = [];
-  it('runs readAFile when file is not a directory', () => {
-    const file = 'README.md';
-    const expected = [{"file": "README.md", "href": "https://es.wikipedia.org/wiki/Markdown", "text": "Markdown"}];
-    recursion(file, linksArray);
-    expect(linksArray).toEqual(
-      expect.arrayContaining(expected),
-    );
-  }); */
+
+/*   it('calls readFile function when the path is a file', () => {
+    const path = 'README.md';
+    const linksArray = [];
+    const spy = jest.fn(() => []);
+    recursion(path, linksArray);
+    expect(spy).toHaveBeenCalled();
+  }) */
 
 });
 

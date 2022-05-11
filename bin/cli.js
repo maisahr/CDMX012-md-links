@@ -63,7 +63,7 @@ switch (true) {
         mdLinks(process.argv[2], options)
         .then(result => {
             result.forEach(link => {
-                console.log(link.file, link.href, link.text.slice(0, 50), '\n');
+                console.log(link.file, link.href, '"' + link.text.slice(0, 50) + '"', '\n');
             });
         });
 }
