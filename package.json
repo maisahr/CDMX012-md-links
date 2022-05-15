@@ -17,7 +17,7 @@
     "yargs": "^17.4.1"
   },
   "description": "Librería para identificar y validar links en archivos markdown.",
-  "main": "index.js",
+  "main": "./bin/cli.js",
   "directories": {
     "test": "test"
   },
