@@ -11,13 +11,13 @@
 
 ## 1. Descripción
 
-El módulo mdLinks proporciona una manera sencilla y eficaz de realizar peticiones HTTP, obtener datos sobre las validaciones y estadísticas sobre los enlaces que se analicen. Este proyecto utiliza [Yargs](https://yargs.js.org/) y [Axios](https://axios-http.com/), así como [Jest](https://jestjs.io/) para realizar los tests.
+El módulo mdLinks proporciona una manera sencilla y eficaz de realizar peticiones HTTP, obtener datos sobre las validaciones y estadísticas sobre los enlaces que se analicen. Este proyecto utiliza [Yargs](https://yargs.js.org/), [Axios](https://axios-http.com/), [Cheerio](https://cheerio.js.org/) y [Marked](https://marked.js.org/), así como [Jest](https://jestjs.io/) para realizar los tests.
 
 ## 2. Instalación
 
 Para instalar, únicamente se necesita correr el siguiente comando en la terminal:
 
-
+`npm i mdlinks-maisahr`
 
 ## 3. Uso
 La estructura básica para utilizar mdLinks, es la siguiente
