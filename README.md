@@ -13,6 +13,8 @@
 
 El módulo mdLinks proporciona una manera sencilla y eficaz de realizar peticiones HTTP, obtener datos sobre las validaciones y estadísticas sobre los enlaces que se analicen. Este proyecto utiliza [Yargs](https://yargs.js.org/), [Axios](https://axios-http.com/), [Cheerio](https://cheerio.js.org/) y [Marked](https://marked.js.org/), así como [Jest](https://jestjs.io/) para realizar los tests.
 
+Para la creación del proyecto, realicé un [diagrama de flujo](#diagrama-de-flujo), que adjunto al final de este ReadMe.
+
 ## 2. Instalación
 
 Para instalar, únicamente se necesita correr el siguiente comando en la terminal:
@@ -65,3 +67,7 @@ Para esta serie de ejemplos, se utiliza la siguiente estructura de carpetas y ar
 
 ### Realizar validación con estadísticas
 ![Captura de pantalla de cuarto ejemplo](./Ejemplo4.png)
+
+## Diagrama de flujo
+
+![Diagrama de flujo](./diagrama.jpg)
