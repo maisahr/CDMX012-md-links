@@ -31,7 +31,7 @@ switch (true) {
             const unique = result.filter((link, index, self) => {
                 return self.findIndex(l => l.href === link.href) === index;
             });
-            const broken = unique.filter(link => {
+            const broken = result.filter(link => {
                 return link.ok === 'fallido';
             });
             console.log('Total:', result.length, '\nÚnicos:', unique.length,'\nRotos:', broken.length);
