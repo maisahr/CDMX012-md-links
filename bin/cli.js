@@ -1,59 +1,60 @@
 #!/usr/bin/env node
-const yargs = require('yargs')
-  .scriptName("md-links")
-  .usage("Usage: $0 <file-path> [options]")
-  .option("v", {
-    alias: "validate",
-    describe: "Validates links.",
+const argv = require('yargs/yargs')(process.argv.slice(2))
+  .scriptName('md-links')
+  .usage('Uso: $0 <ruta-del-archivo> [opciones]')
+  .option('v', {
+    alias: 'validar',
+    describe: 'Mostrar validación de enlaces.',
     demandOption: false,
-    type: "boolean",
+    type: 'boolean',
   })
-  .option("s", {
-    alias: "stats",
-    describe: "Stadistics about total, unique, and broken links.",
+  .option('e', {
+    alias: 'estadisticas',
+    describe: 'Mostrar cantidad de enlaces totales y enlaces únicos.',
     demandOption: false,
-    type: "boolean",
+    type: 'boolean',
   })
-  .describe("help", "Show help.") 
-  .describe("version", "Show version number.")
+  .describe('help', 'Mostrar sección de ayuda.') 
+  .describe('version', 'Mostrar número de versión.')
+  .demandCommand(1, 1, 'Por favor ingresa una ruta de archivo.', 'Por favor ingresa una única ruta de archivo.')
   .strictOptions()
-  .help()
+  .argv;
 
 const {mdLinks} = require('../utils/mdLinks.js');
 
 const options = {validate: true}
 
-switch (yargs.argv.validate || yargs.argv.stats) {
-    case (yargs.argv.validate === true && yargs.argv.stats === true) :
+switch (true) {
+    case (argv.validar === true && argv.estadisticas === true) :
         mdLinks(process.argv[2], options)
         .then(result => {
             const unique = result.filter((link, index, self) => {
                 return self.findIndex(l => l.href === link.href) === index;
             });
             const broken = unique.filter(link => {
-                return link.ok === 'fail';
+                return link.ok === 'fallido';
             });
-            console.log('Total:', result.length, '\nUnique:', unique.length,'\nBroken:', broken.length);
+            console.log('Total:', result.length, '\nÚnicos:', unique.length,'\nRotos:', broken.length);
         });
     break;
 
-    case (yargs.argv.validate === true && yargs.argv.stats !== true) :
+    case (argv.validar === true && argv.estadisticas !== true) :
         mdLinks(process.argv[2], options)
         .then(result => {
             result.forEach(link => {
-                console.log(link.file, link.href, link.ok, link.status, link.text.slice(0, 50), '\n');
+                console.log(link.file, link.href, link.ok, link.status, '"' + link.text.slice(0, 50) + '"', '\n');
             });
         });
     break;
 
-    case (yargs.argv.validate !== true && yargs.argv.stats === true) :
+    case (argv.validar !== true && argv.estadisticas === true) :
         options.validate = false;
         mdLinks(process.argv[2], options)
         .then(result => {
-             const unique = result.filter((link, index, self) => { // self es result
+             const unique = result.filter((link, index, self) => {
                 return self.findIndex(l => l.href === link.href) === index;
             });
-            console.log('Total:', result.length, '\nUnique:', unique.length);
+            console.log('Total:', result.length, '\nÚnicos:', unique.length);
         });
     break;
 
@@ -62,7 +63,7 @@ switch (yargs.argv.validate || yargs.argv.stats) {
         mdLinks(process.argv[2], options)
         .then(result => {
             result.forEach(link => {
-                console.log(link.file, link.href, link.text.slice(0, 50), '\n');
+                console.log(link.file, link.href, '"' + link.text.slice(0, 50) + '"', '\n');
             });
         });
 }

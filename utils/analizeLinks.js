@@ -27,13 +27,13 @@ const validation = (link) => {
     return axios.get(link.href)
     .then(response => {
        link.status = response.status;
-       link.ok = 'ok';
+       link.ok = 'satisfactorio';
        return link;
     })
     .catch(e => {
         if (e.response) {
           link.status = e.response.status;
-          link.ok = 'fail';
+          link.ok = 'fallido';
           return link;
         }
     })

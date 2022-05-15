@@ -2,21 +2,19 @@ const fs = require('fs');
 const path = require('path');
 const {mdToHTML} = require('./analizeLinks');
 
-// Lee un documento
 const readAFile = (file, linksArray) => {
   if(path.extname(file) === '.md'){
     return mdToHTML(fs.readFileSync(file, 'utf8'), file, linksArray);
   } else {
-    console.log(file, 'is not a markdown file.\n');
+    console.log(file, 'no es un archivo markdown.\n');
   }
 };
 
-// Lee documentos dentro de la carpeta
 const readDirectory = (directory) => {
   const files = fs.readdirSync(directory, 'utf8');
   filesNewPath = files.map(file => {
-    const newFilePath = path.join(directory, file);
-    return newFilePath;
+    const correctPath = path.join(directory, file);
+    return correctPath;
   });
   return filesNewPath;
 }
