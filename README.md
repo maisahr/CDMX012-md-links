@@ -17,6 +17,8 @@ El módulo mdLinks proporciona una manera sencilla y eficaz de realizar peticion
 
 Para instalar, únicamente se necesita correr el siguiente comando en la terminal:
 
+
+
 ## 3. Uso
 La estructura básica para utilizar mdLinks, es la siguiente
 `md-links <ruta-del-archivo> --opciones`
@@ -31,9 +33,9 @@ Según lo que necesites obtener, puedes utilizarlo de las siguientes maneras:
 
 * `md-links <ruta-del-archivo> --validar --estadisticas` para realizar la petición HTTP y obtener, además de las estadísticas básicas, el número de enlaces rotos que se encontraron. El orden de las opciones es irrelevante.
 
-En todos los casos, se reconocen los archivos
+En todos los casos, se reconocen los archivos sin extensión .md y se devuelve el mensaje "*Ruta del archivo* no es un archivo markdown." 
 
-Siempre que te surga una duda respecto al uso, puedes acceder a la sección de help mediante `md-links --help`. Así mismo, si no se ingresa una ruta o las opciones correctas, esta sección se desplegará especificando cuál es el problema.
+Si te surge una duda respecto al uso, puedes acceder a la sección de help mediante `md-links --help`. Así mismo, si no se ingresa una ruta o las opciones correctas, esta sección se desplegará especificando cuál es el problema.
 ![Captura de pantalla de sección help](./help.png)
 
 ## 4. Ejemplos
